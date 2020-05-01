@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 -  AZ County </title>
+
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script src="AZ_County_New_vs_Conf_Log.js"></script>
+</head>
+<body>
+<div id="myPlot"></div>
+<div id="hoverinfo" style="margin-left:80px;">
+
+<script>
+    window.onload = function(){
+        initData();
+        setTimeout(plot, 200);
+    }
+</script>
+</body>
+</html>
