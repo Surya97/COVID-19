@@ -120,7 +120,7 @@ function processData(data){
             })
         }
     }
-    debugger;
+    // debugger;
 
     function createSliderSteps(){
         for (i = 0; i < dates.length; i++) {
