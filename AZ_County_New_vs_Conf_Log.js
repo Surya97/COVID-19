@@ -145,9 +145,9 @@ function plot(){
         // autosize: false,
         hovermode: 'closest',
         height: 750,
-        title:'Covid-19: New Cases vs Total Cases - Logarithmic Scale',
+        title:'COVID-19: New Cases vs Total Cases - Logarithmic Scale',
         xaxis:{
-            title: "Confirmed Cases",
+            title: "Total Cases",
             type: 'log',
             dtick: 1
             // tickvals: xticks
