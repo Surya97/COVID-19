@@ -147,17 +147,38 @@ function plot(){
             height: 750,
             title:'COVID-19: New Cases vs Total Cases - Logarithmic Scale',
             xaxis:{
-                title: "Total Cases",
+                title: "<b>Total Cases</b>",
+                titlefont: {
+                    family: 'Arial, sans-serif',
+                    size: 18,
+                    color: 'black'
+                },
                 type: 'log',
-                dtick: 1
+                dtick: 1,
+                tickfont: {
+                    family: 'Old Standard TT, serif',
+                    size: 16,
+                    color: 'black'
+                }
                 // tickvals: xticks
             },
             yaxis:{
-                title: "New Cases Weekly , 7-day average",
+                title: "<b>New Cases Weekly , 7-day average</b>",
                 type: 'log',
                 tick0: 1,
+                titlefont: {
+                    family: 'Arial, sans-serif',
+                    size: 18,
+                    color: 'black'
+                },
                 // tickmode: "linear",
                 dtick: 1,
+                tickfont: {
+                    family: 'Old Standard TT, serif',
+                    size: 16,
+                    color: 'black'
+                }
+
                 // tickvals: yticks
             },
             updatemenus: [{
@@ -195,7 +216,7 @@ function plot(){
                     visible: true,
                     prefix: 'Date:',
                     xanchor: 'right',
-                    font: {size: 20, color: '#666'}
+                    font: {size: 14, color: '#ff0000'}
                 },
                 steps: sliderSteps
             }]

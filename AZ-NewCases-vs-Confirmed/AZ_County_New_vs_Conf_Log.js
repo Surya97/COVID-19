@@ -6,7 +6,7 @@ var xticks = [];
 var yticks = [];
 var frames = [];
 var sliderSteps = [];
-var config = {responsive: true}
+var config = {responsive: true};
 
 var xmax = 0;
 var ymax = 0;
@@ -149,17 +149,38 @@ function plot(){
         height: 750,
         title:'COVID-19: New Cases vs Total Cases - Logarithmic Scale',
         xaxis:{
-            title: "Total Cases",
+            title: "<b>Total Cases</b>",
+            titlefont: {
+                family: 'Arial, sans-serif',
+                size: 18,
+                color: 'black'
+            },
             type: 'log',
-            dtick: 1
+            dtick: 1,
+            tickfont: {
+                family: 'Old Standard TT, serif',
+                size: 16,
+                color: 'black'
+            }
             // tickvals: xticks
         },
         yaxis:{
-            title: "New Cases Weekly , 7-day average",
+            title: "<b>New Cases Weekly , 7-day average</b>",
             type: 'log',
             tick0: 1,
+            titlefont: {
+                family: 'Arial, sans-serif',
+                size: 18,
+                color: 'black'
+            },
             // tickmode: "linear",
             dtick: 1,
+            tickfont: {
+                family: 'Old Standard TT, serif',
+                size: 16,
+                color: 'black'
+            }
+
             // tickvals: yticks
         },
         updatemenus: [{
@@ -197,7 +218,7 @@ function plot(){
                 visible: true,
                 prefix: 'Date:',
                 xanchor: 'right',
-                font: {size: 20, color: '#666'}
+                font: {size: 14, color: '#ff0000'}
             },
             steps: sliderSteps
         }]
@@ -208,23 +229,6 @@ function plot(){
         frames: frames,
         config: config
     });
-
-    // myPlot.on('plotly_hover', function(data){
-    //     var infotext = data.points.map(function(d){
-    //         debugger;
-    //         return (
-    //             '<b>' + d.data.name + '<b>' +
-    //                 '<br>'+ '<b>Date:</b>' + d.text + '<br>' +
-    //                 '<br>' + '<b>New Cases (7-day rolling average):</b>' + d.y + '<br>' +
-    //                 '<br>' + '<b>Total Cases:</b>' + d.x + '<br>'
-    //         );
-    //     });
-    //     hoverInfo.innerHTML = infotext.join('<br/>');
-    // });
-    //
-    // myPlot.on('plotly_unhover', function(data){
-    //     hoverInfo.innerHTML = '';
-    // });
 }
 
 

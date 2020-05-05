@@ -148,9 +148,29 @@ function plot(){
             title:'COVID-19: Deaths vs Cases',
             xaxis:{
                 title: "Number of Total Cases",
+                titlefont: {
+                    family: 'Arial, sans-serif',
+                    size: 18,
+                    color: 'black'
+                },
+                tickfont: {
+                    family: 'Old Standard TT, serif',
+                    size: 16,
+                    color: 'black'
+                }
             },
             yaxis:{
                 title: "Number of Total Deaths",
+                titlefont: {
+                    family: 'Arial, sans-serif',
+                    size: 18,
+                    color: 'black'
+                },
+                tickfont: {
+                    family: 'Old Standard TT, serif',
+                    size: 16,
+                    color: 'black'
+                }
             },
             updatemenus: [{
                 x: 0,
@@ -187,7 +207,7 @@ function plot(){
                     visible: true,
                     prefix: 'Date:',
                     xanchor: 'right',
-                    font: {size: 20, color: '#666'}
+                    font: {size: 14, color: '#ff0000'}
                 },
                 steps: sliderSteps
             }]
