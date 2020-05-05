@@ -145,9 +145,9 @@ function plot(){
             // autosize: false,
             hovermode: 'closest',
             height: 750,
-            title:'COVID-19: Deaths vs Cases',
+            title:'<b>COVID-19: Deaths vs Cases</b>',
             xaxis:{
-                title: "Number of Total Cases",
+                title: "<b>Number of Total Cases</b>",
                 titlefont: {
                     family: 'Arial, sans-serif',
                     size: 18,
@@ -157,10 +157,10 @@ function plot(){
                     family: 'Old Standard TT, serif',
                     size: 16,
                     color: 'black'
-                }
+                },
             },
             yaxis:{
-                title: "Number of Total Deaths",
+                title: "<b>Number of Total Deaths</b>",
                 titlefont: {
                     family: 'Arial, sans-serif',
                     size: 18,
@@ -170,7 +170,7 @@ function plot(){
                     family: 'Old Standard TT, serif',
                     size: 16,
                     color: 'black'
-                }
+                },
             },
             updatemenus: [{
                 x: 0,
