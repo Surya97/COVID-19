@@ -98,7 +98,6 @@ function processData(data){
             let trace = {x:[], y:[]};
             let stateData = getByState(processedData, state);
             let index = dates.indexOf(date);
-            console.log(index);
             let confirmed = unpack(stateData, 'Confirmed');
             let new_cases_weekly = unpack(stateData, 'New_Cases_Weekly');
             trace.x = confirmed.slice(0, index+1);

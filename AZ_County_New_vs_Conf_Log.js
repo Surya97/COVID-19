@@ -99,7 +99,6 @@ function processData(data){
                 let trace = {x:[], y:[]};
                 let countyData = getByCounty(processedData, county);
                 let index = dates.indexOf(date);
-                console.log(index);
                 let confirmed = unpack(countyData, 'Confirmed');
                 let new_cases_weekly = unpack(countyData, 'New_Cases_Weekly');
                 // let frameData = countyData.filter(e => e['Date'] == date);
