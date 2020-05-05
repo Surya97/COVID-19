@@ -14,7 +14,7 @@ var ymax = 0;
 var traces;
 
 function initData() {
-    Plotly.d3.csv("../Arizona_county_historic_data.csv", function(err, data){
+    Plotly.d3.csv("Arizona_county_historic_data.csv", function(err, data){
         initialData = data;
         processData();
     });
