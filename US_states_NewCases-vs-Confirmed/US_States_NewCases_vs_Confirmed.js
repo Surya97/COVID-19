@@ -145,7 +145,7 @@ function plot(){
             // autosize: false,
             hovermode: 'closest',
             height: 750,
-            title:'COVID-19: New Cases vs Total Cases - Logarithmic Scale',
+            title:'COVID-19: US States New Cases vs Total Cases - Logarithmic Scale',
             xaxis:{
                 title: "<b>Total Cases</b>",
                 titlefont: {
