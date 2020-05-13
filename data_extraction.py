@@ -6,39 +6,36 @@ import pandas as pd
 from tqdm import tqdm
 from datetime import datetime, timedelta
 
-us_states_historical_data = "https://covidtracking.com/api/states/daily"
-us_overall_historical_data = "https://covidtracking.com/api/us/daily"
+
 JHU_US_Confirmed_timeseries = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
 JHU_US_deaths_timeseries = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv"
 JHU_world_confirmed_timeseries = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 JHU_world_deaths_timeseries = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
 NY_county_timeseries = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+NY_state_timeseries = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"
 
 JHU_US_Confirmed_df = pd.DataFrame()
 JHU_US_Deaths_df = pd.DataFrame()
-us_states_historical_df = pd.DataFrame()
-us_overall_historical_df = pd.DataFrame()
 JHU_world_confirmed_df = pd.DataFrame()
 JHU_world_deaths_df = pd.DataFrame()
-US_county_df = pd.DataFrame
+US_county_df = pd.DataFrame()
+US_states_df = pd.DataFrame()
 
 
 def get_data():
-    global us_states_historical_df
     global JHU_US_Confirmed_df
     global JHU_US_Deaths_df
-    global us_overall_historical_df
     global JHU_world_confirmed_df
     global JHU_world_deaths_df
     global US_county_df
+    global US_states_df
 
-    # us_states_historical_df = pd.DataFrame(requests.get(us_states_historical_data).json())
-    # us_overall_historical_df = pd.DataFrame(requests.get(us_overall_historical_data).json())
     JHU_US_Confirmed_df = pd.read_csv(JHU_US_Confirmed_timeseries, error_bad_lines=False)
     JHU_US_Deaths_df = pd.read_csv(JHU_US_deaths_timeseries, error_bad_lines=False)
     JHU_world_confirmed_df = pd.read_csv(JHU_world_confirmed_timeseries, error_bad_lines=False)
     JHU_world_deaths_df = pd.read_csv(JHU_world_deaths_timeseries, error_bad_lines=False)
     US_county_df = pd.read_csv(NY_county_timeseries, error_bad_lines=False)
+    US_states_df = pd.read_csv(NY_state_timeseries, error_bad_lines=False)
 
     # us_states_historical_df.to_csv('../data/US_States_historical.csv', index=False)
     # us_overall_historical_df.to_csv('../data/US_Overall_historical.csv', index=False)
@@ -204,9 +201,47 @@ def process_county_data(state):
     state_county_final.to_csv('../data/' + state + '_county_historic_data.csv', index=False)
 
 
+def process_us_state_data():
+    global US_states_df
+
+    US_states_df.rename(columns={"date": "Date", "state": "State", "cases": "Confirmed", "deaths": "Deaths"},
+                        inplace=True)
+
+    states = set(US_states_df['State'])
+    grouped = US_states_df.groupby(['Date'])
+
+    for name, group in tqdm(grouped):
+        temp = group
+        for state in states:
+            if state not in temp['State'].values:
+                state_temp = dict()
+                state_temp['Date'] = name
+                state_temp['State'] = state
+                state_temp['Confirmed'] = 0
+                state_temp['Deaths'] = 0
+
+                US_states_df = US_states_df.append(state_temp, ignore_index=True)
+
+    US_states_df.reset_index(drop=True)
+    US_states_df = US_states_df.sort_values(by=['State', 'Date']).reset_index(drop=True)
+    US_states_df['New_Cases'] = US_states_df.groupby(['State']).Confirmed.transform(
+        lambda x: x.diff()).fillna(0)
+
+    US_states_df.reset_index(drop=True)
+    US_states_df.New_Cases = np.where(US_states_df.New_Cases < 0, 0, US_states_df.New_Cases)
+
+    US_states_df['New_Cases_Weekly'] = US_states_df.groupby(['State']).New_Cases.transform(
+        lambda x: x.rolling(7).mean())
+
+    us_states_final = US_states_df.sort_values(by=['State', 'Date']).reset_index(drop=True)
+
+    us_states_final.to_csv('../data/us_states_historic_data.csv', index=False)
+
+
 if __name__ == "__main__":
     get_data()
     # process_state_county_data("Arizona")
     process_county_data("Arizona")
+    process_us_state_data()
     # process_world_data()
 
